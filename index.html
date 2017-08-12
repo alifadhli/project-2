@@ -68,13 +68,18 @@
                     <li class="submenu">
                     <a href="javascript:void(0);" class="show-submenu">Restaurants<i class="icon-down-open-mini"></i></a>
                     <ul>
-                        <li><a href="list_page.html">Restaurant and Food Trucks list</a></li>
+                        <li><a id="to-restaurant-list" href="/restaurant-list">Restaurant and Food Trucks list</a></li>
                         <li><a href="map_listing.html">Map listing</a></li>
                         <li><a href="detail_page.html">Restaurants and Food Trucks Menu</a></li>
                         <li><a href="submit_restaurant.html">Submit Restaurant</a></li>
                         
                     </ul>
                     </li>
+                    <script type="text/javascript">
+                        if(localStorage.getItem('token')) {
+                            document.querySelector('#to-restaurant-list').href += '?token=' + localStorage.getItem('token')
+                        }
+                    </script>
                     <li><a href="about.html">About us</a></li>
                     <li><a href="contacts.html">Contacts</a></li>
                     <li><a href="#0" data-toggle="modal" data-target="#login_2">Login</a></li>
@@ -366,10 +371,10 @@
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-				<form action="#" class="popup-form" id="myLogin">
+				<form class="popup-form" id="myLogin">
                 	<div class="login_icon"><i class="icon_lock_alt"></i></div>
-					<input type="text" class="form-control form-white" placeholder="Username">
-					<input type="text" class="form-control form-white" placeholder="Password">
+					<input type="text" class="form-control form-white" name='email' placeholder="Email">
+					<input type="text" class="form-control form-white" name='password' placeholder="Password">
 					<div class="text-left">
 						<a href="#">Forgot Password?</a>
 					</div>
@@ -377,32 +382,53 @@
 				</form>
 			</div>
 		</div>
-	</div><!-- End modal -->   
+	</div><!-- End modal -->  
+    <script type="text/javascript">
+            document.querySelector('#myLogin').addEventListener('submit', function(event) {
+                event.preventDefault()
+                var formData = new FormData(this)
+                fetch('/login', {
+                    method: 'POST',
+                    body: formData
+                }).then(x => x.json()).then(function(token) {
+                    localStorage.setItem('token', token)
+                    window.location.href = '/'
+                })
+            })
+    </script> 
     
 <!-- Register modal -->   
 <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-				<form action="#" class="popup-form" id="myRegister">
+				<form class="popup-form" id="myRegister">
                 	<div class="login_icon"><i class="icon_lock_alt"></i></div>
-					<input type="text" class="form-control form-white" placeholder="Name">
-					<input type="text" class="form-control form-white" placeholder="Last Name">
-                    <input type="email" class="form-control form-white" placeholder="Email">
-                    <input type="text" class="form-control form-white" placeholder="Password"  id="password1">
+					<input type="text" name="firstName" class="form-control form-white" placeholder="First Name">
+					<input type="text" name="lastName" class="form-control form-white" placeholder="Last Name">
+                    <input type="email" name="email" class="form-control form-white" placeholder="Email">
+                    <input type="text" name="password" class="form-control form-white" placeholder="Password"  id="password1">
                     <input type="text" class="form-control form-white" placeholder="Confirm password"  id="password2">
                     <div id="pass-info" class="clearfix"></div>
-					<div class="checkbox-holder text-left">
-						<div class="checkbox">
-							<input type="checkbox" value="accept_2" id="check_2" name="check_2" />
-							<label for="check_2"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
-						</div>
-					</div>
 					<button type="submit" class="btn btn-submit">Register</button>
 				</form>
 			</div>
 		</div>
 	</div><!-- End Register modal -->
+<script type="text/javascript">
+    document.querySelector('#myRegister').addEventListener('submit', function(event) {
+        event.preventDefault()
+        var formData = new FormData(this)
+        fetch('/addUser', {
+            method: 'POST',
+            body: formData
+        }).then(x => x.json()).then(function(token) {
+            localStorage.setItem('token', token)
+            window.location.href = '/'
+        })
+    })
+</script>
+
     
 <!-- COMMON SCRIPTS -->
 <script src="js/jquery-2.2.4.min.js"></script>

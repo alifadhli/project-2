@@ -1,0 +1,27 @@
+{{#each restaurant}}
+<div class="strip_list wow fadeIn" data-wow-delay="0.1s">
+	<div class="row">
+		<div class="col-md-9 col-sm-9">
+			<div class="desc">
+				<!-- <div class="thumb_strip">
+					<a href="detail_page.html"><img src="img/thumb_restaurant.jpg" alt=""></a>
+				</div> -->
+			<!-- 	<div class="rating">
+					<i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i> (<small><a href="#0">98 reviews</a></small>)
+				</div> -->
+				<h3>{{name}}</h3>
+				<!-- <div class="type">
+					{{type}}
+				</div> -->
+				<div class="location">
+					{{location}} <!-- <span class="opening">{{opening}}</span> {{minimumOrder}} -->
+				</div>
+			<!-- 	<ul>
+					<li>Take away<i class="icon_check_alt2 {{hasTakeaway}}"></i></li> ok or no
+					<li>Delivery<i class="icon_check_alt2 {{hasDelivery}}"></i></li>
+				</ul> -->
+			</div>
+		</div>
+	</div><!-- End row-->
+</div><!-- End strip_list-->
+{{/each}}

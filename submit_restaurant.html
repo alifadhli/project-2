@@ -74,12 +74,18 @@
                     <li class="submenu">
                     <a href="javascript:void(0);" class="show-submenu">Restaurants<i class="icon-down-open-mini"></i></a>
                     <ul>
-                        <li><a href="list_page.html">Restaurant and Food Trucks list</a></li>
+                        <li><a id="to-restaurant-list" href="/restaurant-list">Restaurant and Food Trucks list</a></li>
                         <li><a href="map_listing.html">Map listing</a></li>
                         <li><a href="detail_page.html">Restaurants and Food Trucks Menu</a></li>
                         <li><a href="submit_restaurant.html">Submit Restaurant</a></li>
                         
                     </ul>
+                    </li>
+                    <script type="text/javascript">
+                        if(localStorage.getItem('token')) {
+                            document.querySelector('#to-restaurant-list').href += '?token=' + localStorage.getItem('token')
+                        }
+                    </script>
                     </li>
                     <li><a href="about.html">About us</a></li>
                     <li><a href="contacts.html">Contacts</a></li>
@@ -196,7 +202,7 @@
                     </div>
             	<div class="row">
                 	<div class="col-md-8 col-md-offset-2">
-                    	<form >
+                    	<form method='POST' action="/addRest" >
             						<div class="row">
             							<div class="col-md-6 col-sm-6">
             								<div class="form-group">
